@@ -2,7 +2,7 @@ from django.conf import settings
 from .serializers import UserSerializer
 from rest_framework import generics, status
 from django.contrib.auth import authenticate
-from uploader import key_config
+from django_project import key_config
 from .models import AuthToken
 from .serializers import UserLoginSerializer
 from rest_framework.response import Response
