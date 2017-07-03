@@ -23,4 +23,5 @@ class UserLogin(generics.GenericAPIView):
                 response = UserLoginSerializer(auth_token).data
                 return Response(response, status=status.HTTP_200_OK)
         else:
+            response['error'] = ['Not Authorized']
             return Response(response, status=status.HTTP_200_OK)

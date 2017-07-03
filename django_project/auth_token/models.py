@@ -9,6 +9,8 @@ from django.db import models
 # Create your models here.
 from django.conf import settings
 from django_project.models import TimestampModel
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 def get_expiry():
@@ -44,7 +46,7 @@ class AuthTokenManager(models.Manager):
 
 
 class AuthToken(TimestampModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(User)
     token = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     expiry_datetime = models.DateTimeField(default=get_expiry)
     is_expired = models.BooleanField(default=False)
