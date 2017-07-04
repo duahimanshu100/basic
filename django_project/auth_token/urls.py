@@ -5,4 +5,5 @@ from . import api
 urlpatterns = [
     url(r'^(?i)api/Login/', api.UserLogin.as_view()),
     url(r'^(?i)api/SignUp/', api.UserSignUp.as_view()),
+    url(r'^(?i)api/Logout/', api.UserLogout.as_view()),
 ]

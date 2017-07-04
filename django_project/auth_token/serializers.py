@@ -48,3 +48,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
             if user:
                 data['user'] = UserSerializer(user).data
         return data
+
+
+class UserLogoutSerializer(serializers.Serializer):
+    token = serializers.UUIDField()

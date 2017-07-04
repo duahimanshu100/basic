@@ -22,6 +22,9 @@ class AuthTokenManager(models.Manager):
     def expire_old_tokens_by_user(self, user):
         self.filter(user=user).update(is_expired=True)
 
+    def expire_token(self, token):
+        self.filter(token=token).update(is_expired=True)
+
     def expire_all_tokens(self, user):
         self.filter(user=user).update(is_expired=True)
 

@@ -1,5 +1,5 @@
 from django.conf import settings
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserLogoutSerializer
 from rest_framework import generics, status
 from django.contrib.auth import authenticate
 from django_project import key_config
@@ -64,3 +64,18 @@ class UserSignUp(generics.GenericAPIView):
 
         response['error'] = ['Not Authorized']
         return Response(response, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UserLogout(generics.GenericAPIView):
+    serializer_class = UserLogoutSerializer
+
+    def post(self, request, *args, **kw):
+        token = self.request.data.get(key_config.KEY_TOKEN)
+        response = {}
+        serializer_data = UserLogoutSerializer(data=self.request.data)
+        if serializer_data.is_valid():
+            AuthToken.objects.expire_token(token=token)
+            return Response(response, status=status.HTTP_200_OK)
+        else:
+            response['error'] = serializer_data.errors
+            return Response(response, status=status.HTTP_401_UNAUTHORIZED)
